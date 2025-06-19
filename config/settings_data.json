@@ -9,6 +9,8 @@
  */
 {
   "current": {
+    "logo": "shopify://shop_images/logo.jpg",
+    "logo_inverse": "shopify://shop_images/logo.jpg",
     "type_body_font": "sans-serif",
     "type_subheading_font": "inter_n5",
     "type_heading_font": "inter_n7",
