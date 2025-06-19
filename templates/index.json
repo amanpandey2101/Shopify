@@ -1294,6 +1294,9 @@
       "block_order": [
         "text_aVfUcz"
       ],
+      "custom_css": [
+        "{margin-top:2rem; margin-bottom:2rem;}"
+      ],
       "name": "t:names.marquee_section",
       "settings": {
         "movement_direction": "normal",
