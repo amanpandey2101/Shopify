@@ -160,6 +160,19 @@
                 "price_tVjtKg"
               ]
             },
+            "review_G3ygif": {
+              "type": "review",
+              "name": "t:names.product_review_stars",
+              "settings": {
+                "product": "{{ closest.product }}",
+                "stars_style": "shaded",
+                "show_number": true,
+                "rating_color": "primary",
+                "type_preset": "paragraph",
+                "alignment": "left"
+              },
+              "blocks": {}
+            },
             "divider_VJhene": {
               "type": "_divider",
               "name": "t:names.divider",
@@ -460,29 +473,16 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
-            },
-            "review_G3ygif": {
-              "type": "review",
-              "name": "t:names.product_review_stars",
-              "settings": {
-                "product": "{{ closest.product }}",
-                "stars_style": "shaded",
-                "show_number": true,
-                "rating_color": "primary",
-                "type_preset": "paragraph",
-                "alignment": "left"
-              },
-              "blocks": {}
             }
           },
           "block_order": [
             "group_icgrde",
+            "review_G3ygif",
             "divider_VJhene",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
             "group_JbmQwr",
-            "text_aEtTtq",
-            "review_G3ygif"
+            "text_aEtTtq"
           ]
         }
       },
