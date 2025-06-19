@@ -26,7 +26,9 @@
       <!-- Render the background section -->
       <div class="slideshow-background-content">
         <div class="parallax-background-section" {{ background_section.shopify_attributes }}>
-          {% content_for 'blocks', limit: 1 %}
+          {% for block in section.blocks limit: 1 %}
+            {{ block.content }}
+          {% endfor %}
         </div>
       </div>
     </div>
