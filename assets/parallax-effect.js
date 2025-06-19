@@ -1,5 +1,9 @@
 class ParallaxEffect {
   constructor() {
+    this.parallaxContainers = [];
+    this.isScrolling = false;
+    this.observer = null;
+    this.resizeTimeout = null;
     this.initParallax();
     this.bindEvents();
   }
@@ -18,12 +22,15 @@ class ParallaxEffect {
         }
       });
     }, {
-      threshold: 0.1
+      threshold: 0.1,
+      rootMargin: '50px 0px'
     });
 
     // Observe all parallax containers
     this.parallaxContainers.forEach(container => {
-      this.observer.observe(container);
+      if (container && this.observer) {
+        this.observer.observe(container);
+      }
     });
   }
 
@@ -39,7 +46,7 @@ class ParallaxEffect {
         });
         ticking = true;
       }
-    });
+    }, { passive: true });
 
     // Handle resize events
     window.addEventListener('resize', () => {
@@ -54,28 +61,47 @@ class ParallaxEffect {
 
   updateParallax() {
     const scrollY = window.pageYOffset;
+    const windowHeight = window.innerHeight;
     
     this.parallaxContainers.forEach(container => {
-      if (container.classList.contains('parallax-active')) {
+      if (container && container.classList.contains('parallax-active')) {
         const videoElement = container.querySelector('.parallax-video');
         const contentElement = container.querySelector('.parallax-content');
         
         if (videoElement && contentElement) {
-          // Calculate parallax offset
+          // Get container position and dimensions
           const containerRect = container.getBoundingClientRect();
-          const speed = 0.5; // Parallax speed multiplier
+          const containerTop = containerRect.top + scrollY;
+          const containerHeight = containerRect.height;
           
-          // Apply transform to create parallax effect
-          const translateY = scrollY * speed;
-          videoElement.style.transform = `translateZ(-1px) scale(2) translateY(${translateY}px)`;
+          // Calculate scroll progress relative to container
+          const scrollProgress = (scrollY - containerTop + windowHeight) / (containerHeight + windowHeight);
+          
+          // Only apply parallax when container is in reasonable view
+          if (scrollProgress >= -0.1 && scrollProgress <= 1.1) {
+            // Fixed parallax calculation - move background slower than scroll
+            const speed = 0.5;
+            const yPos = (scrollY - containerTop) * speed;
+            
+            // Use proper 3D transform for hardware acceleration
+            if (videoElement instanceof HTMLElement) {
+              videoElement.style.transform = `translate3d(0, ${yPos}px, 0)`;
+              videoElement.style.transformOrigin = 'center center';
+            }
+          }
         }
       }
     });
   }
 
   handleResize() {
-    // Recalculate positions on resize
-    this.updateParallax();
+    // Debounce resize events
+    if (this.resizeTimeout) {
+      clearTimeout(this.resizeTimeout);
+    }
+    this.resizeTimeout = setTimeout(() => {
+      this.updateParallax();
+    }, 100);
   }
 
   disableParallax() {
@@ -83,10 +109,12 @@ class ParallaxEffect {
     document.documentElement.style.setProperty('--parallax-enabled', '0');
     
     this.parallaxContainers.forEach(container => {
-      const videoElement = container.querySelector('.parallax-video');
-      if (videoElement) {
-        videoElement.style.transform = 'none';
-        videoElement.style.position = 'relative';
+      if (container) {
+        const videoElement = container.querySelector('.parallax-video');
+        if (videoElement instanceof HTMLElement) {
+          videoElement.style.transform = 'translate3d(0, 0, 0)';
+          videoElement.style.willChange = 'auto';
+        }
       }
     });
   }
@@ -99,13 +127,29 @@ class ParallaxEffect {
       this.disableParallax();
     }
   }
+
+  destroy() {
+    // Clean up observers and event listeners
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+    
+    if (this.resizeTimeout) {
+      clearTimeout(this.resizeTimeout);
+    }
+    
+    // Reset all transforms
+    this.disableParallax();
+  }
 }
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   // Only initialize if parallax containers exist
   if (document.querySelector('.parallax-container')) {
-    window.parallaxEffect = new ParallaxEffect();
+    if (!window.parallaxEffect) {
+      window.parallaxEffect = new ParallaxEffect();
+    }
   }
 });
 
@@ -117,7 +161,7 @@ function smoothScroll() {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       const targetId = link.getAttribute('href');
-      const targetElement = document.querySelector(targetId);
+      const targetElement = targetId ? document.querySelector(targetId) : null;
       
       if (targetElement) {
         targetElement.scrollIntoView({
@@ -131,6 +175,22 @@ function smoothScroll() {
 
 // Initialize smooth scrolling
 document.addEventListener('DOMContentLoaded', smoothScroll);
+
+// Handle theme editor events
+document.addEventListener('shopify:section:load', () => {
+  if (window.parallaxEffect && typeof window.parallaxEffect.destroy === 'function') {
+    window.parallaxEffect.destroy();
+  }
+  if (document.querySelector('.parallax-container')) {
+    window.parallaxEffect = new ParallaxEffect();
+  }
+});
+
+document.addEventListener('shopify:section:unload', () => {
+  if (window.parallaxEffect && typeof window.parallaxEffect.destroy === 'function') {
+    window.parallaxEffect.destroy();
+  }
+});
 
 // Performance monitoring
 if (typeof window.requestIdleCallback === 'function') {

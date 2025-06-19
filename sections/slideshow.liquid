@@ -1,5 +1,3 @@
-
-
 {% if section.blocks.size > 1 %}
   {% capture controls %}
     {%- render 'slideshow-controls',
@@ -29,11 +27,17 @@
   if section.settings.icons_style == 'none' or section.blocks.size <= 1
     assign show_arrows = false
   endif
+
+  assign parallax_class = ''
+  if section.settings.enable_parallax
+    assign parallax_class = 'slideshow-parallax'
+  endif
 %}
 
 <div
-  class="spacing-style section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} disable-section-top-offset"
+  class="spacing-style section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} disable-section-top-offset {{ parallax_class }}"
   style="{% render 'spacing-padding', settings: section.settings %}"
+  {% if section.settings.enable_parallax %}data-parallax-intensity="{{ section.settings.parallax_intensity }}"{% endif %}
 >
   {% render 'slideshow',
     class: slideshow_class,
@@ -44,9 +48,15 @@
     autoplay_speed: section.settings.autoplay_speed,
     slides: slides,
     slide_count: section.blocks.size,
-    slide_size: section.settings.slide_height
+    slide_size: section.settings.slide_height,
+    enable_parallax: section.settings.enable_parallax
   %}
 </div>
+
+{% if section.settings.enable_parallax %}
+  {{ 'slideshow-parallax.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'slideshow-parallax.js' | asset_url }}" defer></script>
+{% endif %}
 
 {% schema %}
 {
@@ -127,6 +137,39 @@
       "unit": "s",
       "default": 4,
       "visible_if": "{{ section.settings.autoplay }}"
+    },
+    {
+      "type": "header",
+      "content": "Parallax Effects"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_parallax",
+      "label": "Enable parallax scrolling",
+      "default": false,
+      "info": "Creates a depth effect as you scroll. May impact performance on slower devices."
+    },
+    {
+      "type": "select",
+      "id": "parallax_intensity",
+      "label": "Parallax intensity",
+      "options": [
+        {
+          "value": "subtle",
+          "label": "Subtle"
+        },
+        {
+          "value": "moderate",
+          "label": "Moderate"
+        },
+        {
+          "value": "strong",
+          "label": "Strong"
+        }
+      ],
+      "default": "moderate",
+      "visible_if": "{{ section.settings.enable_parallax }}",
+      "info": "Controls how much elements move during scroll"
     },
     {
       "type": "header",
@@ -300,6 +343,66 @@
         }
       },
       "block_order": ["slide_1", "slide_2"]
+    },
+    {
+      "name": "Slideshow with Parallax",
+      "category": "t:categories.storytelling",
+      "settings": {
+        "enable_parallax": true,
+        "parallax_intensity": "moderate",
+        "slide_height": "large"
+      },
+      "blocks": {
+        "slide_1": {
+          "type": "_slide",
+          "settings": {
+            "horizontal_alignment_flex_direction_column": "center"
+          },
+          "blocks": {
+            "group": {
+              "type": "group",
+              "settings": {
+                "horizontal_alignment_flex_direction_column": "center",
+                "width": "custom",
+                "custom_width": 50,
+                "width_mobile": "custom",
+                "inherit_color_scheme": false,
+                "color_scheme": "scheme-6",
+                "custom_width_mobile": 85,
+                "padding-inline-start": 48,
+                "padding-inline-end": 48,
+                "padding-block-start": 48,
+                "padding-block-end": 48
+              },
+              "blocks": {
+                "heading": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<h2>Experience Depth</h2>"
+                  }
+                },
+                "text": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Discover our immersive shopping experience with smooth parallax scrolling effects that bring your products to life.</p>",
+                    "padding-block-end": 20
+                  }
+                },
+                "button": {
+                  "type": "button",
+                  "settings": {
+                    "label": "Explore Now",
+                    "link": "shopify://collections/all"
+                  }
+                }
+              },
+              "block_order": ["heading", "text", "button"]
+            }
+          },
+          "block_order": ["group"]
+        }
+      },
+      "block_order": ["slide_1"]
     }
   ]
 }

@@ -18,6 +18,7 @@
   - slide_size: {String} (optional) -- the height of the slides
   - show_arrows: {Boolean} (optional) -- whether the slideshow will render a slideshow-arrows component
   - slideshow_arrows: {HTML} (optional) -- a custom slideshow-arrows component to render instead of the default
+  - enable_parallax: {Boolean} (optional) -- whether to enable parallax scrolling effects
 {% endcomment %}
 
 {% assign class = class | strip %}
@@ -43,6 +44,9 @@
   {% unless infinite == false %}
     infinite
   {% endunless %}
+  {% if enable_parallax %}
+    data-parallax-enabled="true"
+  {% endif %}
 
   {{ attributes }}
 >
