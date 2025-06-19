@@ -1,7 +1,7 @@
 {% comment %}
-  Parallax Slideshow Wrapper Section
+  Parallax Slideshow + Content Section
   This section creates a parallax effect where a slideshow stays fixed as background
-  while other sections (like Product List Grid) scroll on top
+  while other sections (like Product Grid) scroll on top
 {% endcomment %}
 
 <div class="parallax-slideshow-container" id="parallax-{{ section.id }}">
@@ -70,7 +70,7 @@
   {% else %}
     <!-- No slideshow block found -->
     <div class="parallax-error">
-      <p>Please add a Slideshow block to enable parallax effects.</p>
+      <p>Please add a Slideshow Background block to enable parallax effects.</p>
     </div>
   {% endif %}
 </div>
@@ -204,7 +204,7 @@
       "settings": [
         {
           "type": "paragraph",
-          "content": "This slideshow will serve as the parallax background. Configure slideshow settings below."
+          "content": "This slideshow will serve as the parallax background. Add your slideshow slides using the regular slideshow section first, then reference them here."
         },
         {
           "type": "checkbox",
