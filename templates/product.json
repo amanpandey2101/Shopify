@@ -12,6 +12,10 @@
     "main": {
       "type": "product-information",
       "blocks": {
+        "judge_me_reviews_review_widget_qUY7DA": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
         "media-gallery": {
           "type": "_product-media-gallery",
           "static": true,
@@ -486,6 +490,9 @@
           ]
         }
       },
+      "block_order": [
+        "judge_me_reviews_review_widget_qUY7DA"
+      ],
       "settings": {
         "product": "{{ closest.product }}",
         "content_width": "content-center-aligned",
