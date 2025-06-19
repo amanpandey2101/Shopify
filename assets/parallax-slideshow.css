@@ -1,0 +1,314 @@
+/* Parallax Slideshow Wrapper Styles */
+
+/* Main container */
+.parallax-slideshow-container {
+  position: relative;
+  overflow-x: hidden;
+  /* Prevent horizontal scroll issues */
+  width: 100%;
+}
+
+/* Fixed slideshow background */
+.parallax-slideshow-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  /* Will be set via inline styles */
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Background overlay */
+.parallax-background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+/* Slideshow content within background */
+.slideshow-background-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Parallax background slideshow specific styles */
+.slideshow--parallax-background {
+  height: 100%;
+  width: 100%;
+}
+
+.slideshow--parallax-background slideshow-slides,
+.slideshow--parallax-background slideshow-slide {
+  height: 100%;
+  min-height: 100%;
+}
+
+.slideshow--parallax-background .slide__image-container {
+  height: 100%;
+}
+
+.slideshow--parallax-background .slide__image,
+.slideshow--parallax-background .slide__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* Scrolling content container */
+.parallax-scrolling-content {
+  position: relative;
+  z-index: 10;
+  background: var(--color-background);
+  min-height: 100vh;
+}
+
+/* Spacer to push content down initially */
+.parallax-spacer {
+  width: 100%;
+  /* Height set via inline styles */
+  background: transparent;
+  pointer-events: none;
+}
+
+/* Content blocks */
+.parallax-content-block {
+  position: relative;
+  background: var(--color-background);
+  padding: 0;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.parallax-content-block:first-child {
+  /* Remove shadow from first content block */
+  box-shadow: none;
+}
+
+/* Smooth transition at the top of scrolling content */
+.parallax-scrolling-content::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(to bottom, transparent, var(--color-background));
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Product grid within parallax content */
+.parallax-content-block .product-grid {
+  padding: 60px 20px;
+  background: var(--color-background);
+}
+
+.parallax-content-block .product-grid h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2.5rem;
+}
+
+/* Collection list within parallax content */
+.parallax-content-block .collection-list {
+  padding: 60px 20px;
+  background: var(--color-background);
+}
+
+/* Text content within parallax content */
+.parallax-content-block .text-content {
+  padding: 80px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.parallax-content-block .text-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.parallax-content-block .text-content p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--color-foreground-75);
+}
+
+/* Image banner within parallax content */
+.parallax-content-block .image-banner {
+  padding: 0;
+  position: relative;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Custom block fallback */
+.custom-block-content {
+  padding: 60px 20px;
+  text-align: center;
+  background: var(--color-background);
+}
+
+.custom-block-content h3 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+/* Error state */
+.parallax-error {
+  padding: 100px 20px;
+  text-align: center;
+  background: var(--color-background);
+  color: var(--color-foreground-75);
+}
+
+/* Parallax animation optimizations */
+.parallax-slideshow-container [data-parallax] {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Performance optimizations for mobile */
+@media screen and (max-width: 749px) {
+  .parallax-slideshow-background {
+    /* Reduce parallax on mobile for better performance */
+    transform: none !important;
+  }
+  
+  .parallax-scrolling-content {
+    /* Ensure content is always above background on mobile */
+    position: relative;
+    z-index: 20;
+  }
+  
+  .parallax-content-block .product-grid,
+  .parallax-content-block .text-content {
+    padding: 40px 15px;
+  }
+  
+  .parallax-content-block .text-content h2 {
+    font-size: 2rem;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .parallax-slideshow-background {
+    position: relative !important;
+    transform: none !important;
+  }
+  
+  .parallax-scrolling-content {
+    margin-top: 0 !important;
+  }
+  
+  .parallax-spacer {
+    display: none !important;
+  }
+  
+  .parallax-slideshow-container [data-parallax] {
+    transform: none !important;
+    will-change: auto;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .parallax-background-overlay {
+    background: rgba(0, 0, 0, 0.7) !important;
+  }
+  
+  .parallax-content-block {
+    border: 2px solid var(--color-border);
+  }
+}
+
+/* Print styles */
+@media print {
+  .parallax-slideshow-background {
+    position: relative !important;
+    height: auto !important;
+    page-break-inside: avoid;
+  }
+  
+  .parallax-scrolling-content {
+    margin-top: 0 !important;
+  }
+  
+  .parallax-spacer {
+    display: none !important;
+  }
+  
+  .parallax-background-overlay {
+    display: none !important;
+  }
+}
+
+/* Focus and accessibility */
+.parallax-slideshow-container:focus-within .parallax-slideshow-background {
+  /* Reduce motion when focused for accessibility */
+  animation-play-state: paused;
+}
+
+/* Loading state */
+.parallax-slideshow-container.loading .parallax-scrolling-content {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.parallax-slideshow-container.loaded .parallax-scrolling-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Smooth scrolling behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced smooth scrolling for webkit browsers */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure proper stacking context */
+.parallax-slideshow-container {
+  isolation: isolate;
+}
+
+/* Navigation controls positioning for background slideshow */
+.parallax-slideshow-background .slideshow-controls {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.parallax-slideshow-background .slideshow-arrows {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+}
+
+/* Ensure slideshow navigation is visible */
+.parallax-slideshow-background slideshow-component {
+  height: 100%;
+  position: relative;
+} 

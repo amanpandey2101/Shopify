@@ -1,0 +1,127 @@
+{% comment %}
+  Text Content Section Snippet for Parallax Wrapper
+  Renders text content with heading and rich text
+{% endcomment %}
+
+<div class="text-content color-{{ block.settings.color_scheme | default: 'scheme-1' }}">
+  <div class="page-width">
+    <div class="text-content__container">
+      {% if block.settings.title != blank %}
+        <h2 class="text-content__title">{{ block.settings.title }}</h2>
+      {% endif %}
+      
+      {% if block.settings.content != blank %}
+        <div class="text-content__text">
+          {{ block.settings.content }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .text-content {
+    padding: 80px 20px;
+    background: var(--color-background);
+  }
+
+  .text-content__container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .text-content__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: var(--color-foreground);
+    line-height: 1.2;
+  }
+
+  .text-content__text {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--color-foreground-75);
+  }
+
+  .text-content__text p {
+    margin-bottom: 20px;
+  }
+
+  .text-content__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  .text-content__text h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 30px 0 15px 0;
+    color: var(--color-foreground);
+  }
+
+  .text-content__text h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 25px 0 10px 0;
+    color: var(--color-foreground);
+  }
+
+  .text-content__text ul,
+  .text-content__text ol {
+    text-align: left;
+    max-width: 600px;
+    margin: 20px auto;
+  }
+
+  .text-content__text li {
+    margin-bottom: 8px;
+  }
+
+  .text-content__text blockquote {
+    border-left: 4px solid var(--color-border);
+    padding-left: 20px;
+    margin: 30px 0;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--color-foreground-75);
+  }
+
+  .text-content__text a {
+    color: var(--color-link);
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+
+  .text-content__text a:hover {
+    color: var(--color-link-hover);
+  }
+
+  @media screen and (max-width: 749px) {
+    .text-content {
+      padding: 60px 15px;
+    }
+
+    .text-content__title {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .text-content__text {
+      font-size: 1.1rem;
+    }
+
+    .text-content__text h3 {
+      font-size: 1.3rem;
+    }
+
+    .text-content__text h4 {
+      font-size: 1.2rem;
+    }
+
+    .text-content__text blockquote {
+      font-size: 1.2rem;
+      padding-left: 15px;
+    }
+  }
+</style> 

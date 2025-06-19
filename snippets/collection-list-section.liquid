@@ -1,0 +1,229 @@
+{% comment %}
+  Collection List Section Snippet for Parallax Wrapper
+  Renders a list of collections with images and links
+{% endcomment %}
+
+<div class="collection-list color-{{ block.settings.color_scheme | default: 'scheme-1' }}">
+  <div class="page-width">
+    {% if block.settings.title != blank %}
+      <h2 class="collection-list__title">{{ block.settings.title }}</h2>
+    {% endif %}
+
+    {% if block.settings.collections.size > 0 %}
+      <div class="collection-list__container">
+        <div class="collection-list__grid">
+          {% for collection in block.settings.collections %}
+            <div class="collection-list__item">
+              <a href="{{ collection.url }}" class="collection-card">
+                <div class="collection-card__image">
+                  {% if collection.featured_image %}
+                    {{ collection.featured_image | image_url: width: 500 | image_tag: 
+                       loading: 'lazy', 
+                       alt: collection.featured_image.alt | escape,
+                       class: 'collection-card__img' }}
+                  {% elsif collection.products.first.featured_image %}
+                    {{ collection.products.first.featured_image | image_url: width: 500 | image_tag: 
+                       loading: 'lazy', 
+                       alt: collection.products.first.featured_image.alt | escape,
+                       class: 'collection-card__img' }}
+                  {% else %}
+                    <div class="collection-card__placeholder">
+                      <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+                        <rect width="120" height="120" fill="#f3f3f3"/>
+                        <path d="M40 50h40v20H40z" fill="#e0e0e0"/>
+                        <circle cx="50" cy="70" r="8" fill="#d0d0d0"/>
+                        <circle cx="70" cy="70" r="8" fill="#d0d0d0"/>
+                      </svg>
+                    </div>
+                  {% endif %}
+                  
+                  <div class="collection-card__overlay">
+                    <div class="collection-card__content">
+                      <h3 class="collection-card__title">{{ collection.title }}</h3>
+                      {% if collection.products_count > 0 %}
+                        <p class="collection-card__count">{{ collection.products_count }} products</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% else %}
+      <div class="collection-list__empty">
+        <p>No collections selected. Please choose collections to display.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .collection-list {
+    padding: 60px 20px;
+    background: var(--color-background);
+  }
+
+  .collection-list__title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: var(--color-foreground);
+  }
+
+  .collection-list__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+  }
+
+  .collection-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .collection-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .collection-card__image {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    background: #f8f8f8;
+  }
+
+  .collection-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.5s ease;
+  }
+
+  .collection-card:hover .collection-card__img {
+    transform: scale(1.1);
+  }
+
+  .collection-card__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f3f3f3;
+  }
+
+  .collection-card__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.3) 60%,
+      rgba(0, 0, 0, 0.7) 100%
+    );
+    display: flex;
+    align-items: flex-end;
+    padding: 30px;
+    transition: background 0.3s ease;
+  }
+
+  .collection-card:hover .collection-card__overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0.4) 60%,
+      rgba(0, 0, 0, 0.8) 100%
+    );
+  }
+
+  .collection-card__content {
+    color: white;
+    text-align: left;
+  }
+
+  .collection-card__title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .collection-card__count {
+    font-size: 1rem;
+    opacity: 0.9;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  .collection-list__empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--color-foreground-75);
+    font-size: 1.1rem;
+  }
+
+  @media screen and (max-width: 990px) {
+    .collection-list__grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .collection-list {
+      padding: 50px 15px;
+    }
+
+    .collection-list__title {
+      font-size: 2rem;
+      margin-bottom: 30px;
+    }
+
+    .collection-list__grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .collection-card__image {
+      height: 250px;
+    }
+
+    .collection-card__overlay {
+      padding: 20px;
+    }
+
+    .collection-card__title {
+      font-size: 1.5rem;
+    }
+
+    .collection-card__count {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .collection-card__image {
+      height: 200px;
+    }
+
+    .collection-card__title {
+      font-size: 1.3rem;
+    }
+  }
+</style> 

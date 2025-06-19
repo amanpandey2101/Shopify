@@ -1,0 +1,404 @@
+{% comment %}
+  Parallax Slideshow Wrapper Section
+  This section creates a parallax effect where a slideshow stays fixed as background
+  while other sections (like Product List Grid) scroll on top
+{% endcomment %}
+
+<div class="parallax-slideshow-container" id="parallax-{{ section.id }}">
+  {% assign slideshow_block = null %}
+  {% assign content_blocks = section.blocks | where: 'type', '!=', 'slideshow' %}
+  
+  {% for block in section.blocks %}
+    {% if block.type == 'slideshow' %}
+      {% assign slideshow_block = block %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+  {% if slideshow_block %}
+    <!-- Fixed Slideshow Background -->
+    <div class="parallax-slideshow-background" 
+         data-parallax="background" 
+         data-parallax-speed="{{ section.settings.background_speed | divided_by: 10.0 }}">
+      
+      {% if section.settings.background_overlay %}
+        <div class="parallax-background-overlay" 
+             style="background: rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 }});"></div>
+      {% endif %}
+
+      <!-- Render the slideshow -->
+      <div class="slideshow-background-content">
+        {% render 'slideshow',
+          class: 'slideshow--parallax-background',
+          autoplay: slideshow_block.settings.autoplay,
+          autoplay_speed: slideshow_block.settings.autoplay_speed,
+          slides: slideshow_block.blocks,
+          slide_count: slideshow_block.blocks.size,
+          slide_size: section.settings.slideshow_height,
+          show_arrows: section.settings.show_navigation,
+          icon_style: slideshow_block.settings.icons_style
+        %}
+      </div>
+    </div>
+
+    <!-- Scrolling Content -->
+    <div class="parallax-scrolling-content" data-parallax="foreground">
+      <!-- Spacer to push content down initially -->
+      <div class="parallax-spacer" style="height: {{ section.settings.slideshow_height }}vh;"></div>
+      
+      {% for block in content_blocks %}
+        <div class="parallax-content-block" {{ block.shopify_attributes }}>
+          {% case block.type %}
+            {% when 'product_grid' %}
+              {% render 'product-grid-section', block: block %}
+            {% when 'collection_list' %}
+              {% render 'collection-list-section', block: block %}
+            {% when 'text_content' %}
+              {% render 'text-content-section', block: block %}
+            {% when 'image_banner' %}
+              {% render 'image-banner-section', block: block %}
+            {% else %}
+              <!-- Fallback for custom blocks -->
+              <div class="custom-block-content">
+                <h3>{{ block.settings.title | default: 'Content Block' }}</h3>
+                <p>{{ block.settings.content | default: 'Add your content here' }}</p>
+              </div>
+          {% endcase %}
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <!-- No slideshow block found -->
+    <div class="parallax-error">
+      <p>Please add a Slideshow block to enable parallax effects.</p>
+    </div>
+  {% endif %}
+</div>
+
+<!-- Load parallax CSS and JS -->
+{{ 'parallax-slideshow.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'parallax-slideshow.js' | asset_url }}" defer></script>
+
+<style>
+  /* Section-specific styles */
+  #parallax-{{ section.id }} .parallax-slideshow-background {
+    height: {{ section.settings.slideshow_height }}vh;
+  }
+  
+  #parallax-{{ section.id }} .parallax-background-overlay {
+    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+  }
+  
+  {% if section.settings.parallax_intensity == 'subtle' %}
+    #parallax-{{ section.id }} [data-parallax] {
+      --parallax-multiplier: 0.3;
+    }
+  {% elsif section.settings.parallax_intensity == 'strong' %}
+    #parallax-{{ section.id }} [data-parallax] {
+      --parallax-multiplier: 1.8;
+    }
+  {% else %}
+    #parallax-{{ section.id }} [data-parallax] {
+      --parallax-multiplier: 1.0;
+    }
+  {% endif %}
+</style>
+
+{% schema %}
+{
+  "name": "Parallax Slideshow + Content",
+  "class": "parallax-slideshow-section",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Parallax Settings"
+    },
+    {
+      "type": "select",
+      "id": "parallax_intensity",
+      "label": "Parallax intensity",
+      "options": [
+        {
+          "value": "subtle",
+          "label": "Subtle"
+        },
+        {
+          "value": "moderate",
+          "label": "Moderate"
+        },
+        {
+          "value": "strong",
+          "label": "Strong"
+        }
+      ],
+      "default": "moderate",
+      "info": "Controls how much elements move during scroll"
+    },
+    {
+      "type": "range",
+      "id": "background_speed",
+      "label": "Background scroll speed",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 5,
+      "info": "Lower values make background move slower"
+    },
+    {
+      "type": "header",
+      "content": "Slideshow Background"
+    },
+    {
+      "type": "select",
+      "id": "slideshow_height",
+      "label": "Slideshow height",
+      "options": [
+        {
+          "value": "50",
+          "label": "Small (50vh)"
+        },
+        {
+          "value": "75",
+          "label": "Medium (75vh)"
+        },
+        {
+          "value": "100",
+          "label": "Full screen (100vh)"
+        }
+      ],
+      "default": "100",
+      "info": "Height of the background slideshow"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Show slideshow navigation",
+      "default": true,
+      "info": "Show arrows and dots for the background slideshow"
+    },
+    {
+      "type": "checkbox",
+      "id": "background_overlay",
+      "label": "Add background overlay",
+      "default": true,
+      "info": "Adds a dark overlay to improve text readability"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "default": 30,
+      "unit": "%",
+      "visible_if": "{{ section.settings.background_overlay }}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slideshow",
+      "name": "Slideshow Background",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "This slideshow will serve as the parallax background. Configure slideshow settings below."
+        },
+        {
+          "type": "checkbox",
+          "id": "autoplay",
+          "label": "Auto-rotate slides",
+          "default": false
+        },
+        {
+          "type": "range",
+          "id": "autoplay_speed",
+          "label": "Change slides every",
+          "min": 3,
+          "max": 7,
+          "step": 1,
+          "unit": "s",
+          "default": 4,
+          "visible_if": "{{ block.settings.autoplay }}"
+        },
+        {
+          "type": "select",
+          "id": "icons_style",
+          "label": "Navigation style",
+          "options": [
+            {
+              "value": "arrow",
+              "label": "Arrows"
+            },
+            {
+              "value": "chevron",
+              "label": "Chevrons"
+            },
+            {
+              "value": "arrows_large",
+              "label": "Large arrows"
+            },
+            {
+              "value": "chevron_large",
+              "label": "Large chevrons"
+            },
+            {
+              "value": "none",
+              "label": "None"
+            }
+          ],
+          "default": "arrows_large"
+        }
+      ]
+    },
+    {
+      "type": "product_grid",
+      "name": "Product Grid",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Section title",
+          "default": "Featured Products"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "range",
+          "id": "products_per_row",
+          "label": "Products per row",
+          "min": 2,
+          "max": 5,
+          "step": 1,
+          "default": 4
+        },
+        {
+          "type": "range",
+          "id": "rows",
+          "label": "Number of rows",
+          "min": 1,
+          "max": 4,
+          "step": 1,
+          "default": 2
+        },
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "Color scheme",
+          "default": "scheme-1"
+        }
+      ]
+    },
+    {
+      "type": "collection_list",
+      "name": "Collection List",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Section title",
+          "default": "Shop Collections"
+        },
+        {
+          "type": "collection_list",
+          "id": "collections",
+          "label": "Collections"
+        },
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "Color scheme",
+          "default": "scheme-1"
+        }
+      ]
+    },
+    {
+      "type": "text_content",
+      "name": "Text Content",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "About Us"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Add your text content here. This section will scroll over the parallax background.</p>"
+        },
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "Color scheme",
+          "default": "scheme-1"
+        }
+      ]
+    },
+    {
+      "type": "image_banner",
+      "name": "Image Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Image Banner"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subheading"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "color_scheme",
+          "id": "color_scheme",
+          "label": "Color scheme",
+          "default": "scheme-1"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Parallax Slideshow + Products",
+      "category": "Storytelling",
+      "settings": {
+        "parallax_intensity": "moderate",
+        "slideshow_height": "100",
+        "background_overlay": true,
+        "overlay_opacity": 30
+      },
+      "blocks": [
+        {
+          "type": "slideshow"
+        },
+        {
+          "type": "product_grid",
+          "settings": {
+            "title": "Featured Products",
+            "products_per_row": 4,
+            "rows": 2
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %} 
