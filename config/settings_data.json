@@ -78,7 +78,7 @@
     "blocks": {
       "1710008633607995074": {
         "type": "shopify://apps/tydal-reviews/blocks/app-embed/5f785e18-66cc-4519-8181-565d1cce1705",
-        "disabled": false,
+        "disabled": true,
         "settings": {}
       }
     },
