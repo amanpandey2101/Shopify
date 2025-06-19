@@ -1,48 +1,30 @@
 {% comment %}
   Parallax + Content Section
-  This section creates a parallax effect where the first section (slideshow) stays fixed as background
-  while other sections scroll on top
+  This section creates a parallax effect where the first section serves as a fixed background
+  while other sections scroll on top with parallax effects
 {% endcomment %}
 
 <div class="parallax-slideshow-container" id="parallax-{{ section.id }}">
-  {% assign background_section = null %}
-  {% assign content_sections = section.blocks | offset: 1 %}
-  
   {% if section.blocks.size > 0 %}
-    {% assign background_section = section.blocks[0] %}
-  {% endif %}
-
-  {% if background_section %}
-    <!-- Fixed Background Section -->
+    <!-- Fixed Background Layer -->
     <div class="parallax-slideshow-background" 
          data-parallax="background" 
          data-parallax-speed="{{ section.settings.background_speed | divided_by: 10.0 }}">
       
       {% if section.settings.background_overlay %}
-        <div class="parallax-background-overlay" 
-             style="background: rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 }});"></div>
+        <div class="parallax-background-overlay"></div>
       {% endif %}
-
-      <!-- Render the background section -->
-      <div class="slideshow-background-content">
-        <div class="parallax-background-section" {{ background_section.shopify_attributes }}>
-          {% for block in section.blocks limit: 1 %}
-            {{ block.content }}
-          {% endfor %}
-        </div>
-      </div>
     </div>
 
-    <!-- Scrolling Content -->
-    <div class="parallax-scrolling-content" data-parallax="foreground">
-      <!-- Spacer to push content down initially -->
-      <div class="parallax-spacer" style="height: {{ section.settings.slideshow_height }}vh;"></div>
+    <!-- Content Layer -->
+    <div class="parallax-content-wrapper" data-parallax="foreground">
+      <!-- Spacer to create initial offset -->
+      <div class="parallax-spacer"></div>
       
-      {% for block in content_sections %}
-        <div class="parallax-content-block" {{ block.shopify_attributes }}>
-          {{ block.content }}
-        </div>
-      {% endfor %}
+      <!-- All blocks render here, but we'll position the first one as background via CSS -->
+      <div class="parallax-blocks-container">
+        {% content_for 'blocks' %}
+      </div>
     </div>
   {% else %}
     <!-- No sections found -->
@@ -57,15 +39,83 @@
 <script src="{{ 'parallax-slideshow.js' | asset_url }}" defer></script>
 
 <style>
-  /* Section-specific styles */
+  /* Container setup */
+  #parallax-{{ section.id }} {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Fixed background layer */
   #parallax-{{ section.id }} .parallax-slideshow-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: {{ section.settings.slideshow_height }}vh;
+    z-index: -1;
+  }
+  
+  /* Background overlay */
+  #parallax-{{ section.id }} .parallax-background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 }});
+    z-index: 1;
+  }
+  
+  /* Content wrapper */
+  #parallax-{{ section.id }} .parallax-content-wrapper {
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* Initial spacer */
+  #parallax-{{ section.id }} .parallax-spacer {
     height: {{ section.settings.slideshow_height }}vh;
   }
   
-  #parallax-{{ section.id }} .parallax-background-overlay {
-    opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+  /* Position first block as background */
+  #parallax-{{ section.id }} .parallax-blocks-container > *:first-child {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: {{ section.settings.slideshow_height }}vh;
+    z-index: -2;
   }
   
+  /* Ensure first block content fills the space */
+  #parallax-{{ section.id }} .parallax-blocks-container > *:first-child .section {
+    height: 100%;
+    min-height: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Slideshow specific styles for background */
+  #parallax-{{ section.id }} .parallax-blocks-container > *:first-child slideshow-component,
+  #parallax-{{ section.id }} .parallax-blocks-container > *:first-child .slideshow {
+    height: 100%;
+    min-height: 100%;
+  }
+  
+  /* Content blocks styling */
+  #parallax-{{ section.id }} .parallax-blocks-container > *:not(:first-child) {
+    position: relative;
+    z-index: 3;
+    background: var(--color-background);
+  }
+  
+  /* Remove default margins from content sections */
+  #parallax-{{ section.id }} .parallax-blocks-container > *:not(:first-child) .section {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+  /* Parallax intensity control */
   {% if section.settings.parallax_intensity == 'subtle' %}
     #parallax-{{ section.id }} [data-parallax] {
       --parallax-multiplier: 0.3;
@@ -80,29 +130,23 @@
     }
   {% endif %}
   
-  /* Ensure background section fills the container */
-  .parallax-background-section {
-    height: 100%;
-    width: 100%;
-  }
-  
-  /* Remove default section spacing for background */
-  .parallax-background-section .section {
-    padding: 0;
-    margin: 0;
-  }
-  
-  /* Ensure slideshow fills background properly */
-  .parallax-background-section slideshow-component,
-  .parallax-background-section .slideshow {
-    height: 100%;
-    min-height: 100%;
-  }
-  
-  /* Remove spacing from content sections */
-  .parallax-content-block .section {
-    margin-top: 0;
-    margin-bottom: 0;
+  /* Mobile optimizations */
+  @media (max-width: 749px) {
+    #parallax-{{ section.id }} .parallax-slideshow-background {
+      height: {{ section.settings.slideshow_height | times: 0.75 }}vh;
+    }
+    
+    #parallax-{{ section.id }} .parallax-spacer {
+      height: {{ section.settings.slideshow_height | times: 0.75 }}vh;
+    }
+    
+    #parallax-{{ section.id }} .parallax-blocks-container > *:first-child {
+      height: {{ section.settings.slideshow_height | times: 0.75 }}vh;
+    }
+    
+    #parallax-{{ section.id }} [data-parallax] {
+      --parallax-multiplier: calc(var(--parallax-multiplier) * 0.5);
+    }
   }
 </style>
 
