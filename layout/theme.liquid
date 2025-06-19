@@ -5,6 +5,7 @@
 >
   <head>
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'parallax-effect.css' | asset_url | stylesheet_tag }}
 
     {%- if settings.favicon != blank -%}
       <link
@@ -58,6 +59,7 @@
 
     {% # theme-check-disable ParserBlockingScript %}
     <script src="{{ 'critical.js' | asset_url }}"></script>
+    <script src="{{ 'parallax-effect.js' | asset_url }}" defer></script>
     {% # theme-check-enable ParserBlockingScript %}
 
     {% if settings.quick_add or settings.mobile_quick_add %}

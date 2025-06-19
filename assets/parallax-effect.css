@@ -1,0 +1,131 @@
+/* Parallax Effect Styles */
+
+/* Container for parallax sections */
+.parallax-container {
+  position: relative;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  perspective: 1px;
+}
+
+/* Fixed video background section */
+.parallax-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  transform: translateZ(-1px) scale(2);
+}
+
+.parallax-video .section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Scrolling content that goes over the video */
+.parallax-content {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  margin-top: 100vh; /* Push content down so video is visible first */
+}
+
+/* Smooth scrolling behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced smooth scrolling for webkit browsers */
+* {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Video background styles */
+.parallax-video video,
+.parallax-video .video-background {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Ensure product section has a background when scrolling over video */
+.parallax-content .section {
+  background: var(--color-background);
+  position: relative;
+  border-radius: 0;
+  box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Optional: Add a subtle transition effect at the top of the scrolling content */
+.parallax-content::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(to bottom, transparent, var(--color-background));
+  z-index: 1;
+}
+
+/* Mobile optimizations */
+@media screen and (max-width: 749px) {
+  .parallax-video {
+    transform: translateZ(-1px) scale(1.5);
+  }
+  
+  .parallax-container {
+    perspective: 1px;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .parallax-video {
+    transform: none;
+    position: relative;
+    height: 50vh;
+  }
+  
+  .parallax-content {
+    margin-top: 0;
+  }
+}
+
+/* Performance optimizations */
+.parallax-video,
+.parallax-content {
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Ensure text remains readable over video */
+.parallax-video .section {
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Optional overlay for better text readability */
+.parallax-video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.parallax-video .section-content {
+  position: relative;
+  z-index: 2;
+} 

@@ -1,0 +1,116 @@
+{% comment %}
+  Parallax Wrapper Section
+  This section creates a parallax effect where the first child section (video) stays fixed
+  and the second child section (products) scrolls on top
+{% endcomment %}
+
+<div class="parallax-container">
+  {% for block in section.blocks %}
+    {% case forloop.index %}
+      {% when 1 %}
+        {% comment %} First block becomes the fixed video background {% endcomment %}
+        <div class="parallax-video">
+          {% if section.settings.video_overlay %}
+            <div class="parallax-video-overlay"></div>
+          {% endif %}
+          <div class="section-content">
+            {% render 'section', section: block, children: '' %}
+          </div>
+        </div>
+      {% else %}
+        {% comment %} All other blocks become scrolling content {% endcomment %}
+        {% if forloop.index == 2 %}
+          <div class="parallax-content">
+        {% endif %}
+        
+        {% render 'section', section: block, children: '' %}
+        
+        {% if forloop.last %}
+          </div>
+        {% endif %}
+    {% endcase %}
+  {% endfor %}
+</div>
+
+<style>
+  /* Custom styles for this specific parallax instance */
+  #shopify-section-{{ section.id }} .parallax-video {
+    {% if section.settings.video_height %}
+      height: {{ section.settings.video_height }}vh;
+    {% endif %}
+  }
+  
+  #shopify-section-{{ section.id }} .parallax-content {
+    {% if section.settings.video_height %}
+      margin-top: {{ section.settings.video_height }}vh;
+    {% endif %}
+  }
+  
+  {% if section.settings.overlay_opacity > 0 %}
+    #shopify-section-{{ section.id }} .parallax-video-overlay {
+      background: rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 }});
+    }
+  {% endif %}
+</style>
+
+{% schema %}
+{
+  "name": "Parallax Container",
+  "class": "parallax-section",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Parallax Settings"
+    },
+    {
+      "type": "range",
+      "id": "video_height",
+      "label": "Video Section Height",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "default": 100,
+      "unit": "vh",
+      "info": "Height of the fixed video section"
+    },
+    {
+      "type": "checkbox",
+      "id": "video_overlay",
+      "label": "Add Video Overlay",
+      "default": true,
+      "info": "Adds a dark overlay to improve text readability"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay Opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "default": 30,
+      "unit": "%",
+      "visible_if": "{{ section.settings.video_overlay }}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@theme"
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Parallax Video + Products",
+      "category": "Video",
+      "settings": {
+        "video_height": 100,
+        "video_overlay": true,
+        "overlay_opacity": 30
+      }
+    }
+  ]
+}
+{% endschema %} 
