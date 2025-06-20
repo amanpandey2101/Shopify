@@ -50,7 +50,7 @@
             "custom_width_mobile": 100,
             "height": "fit",
             "details_position": "flex-start",
-            "gap": 28,
+            "gap": 8,
             "sticky_details_desktop": true,
             "inherit_color_scheme": true,
             "color_scheme": "",
@@ -109,11 +109,11 @@
                 "text_xrnftG": {
                   "type": "text",
                   "settings": {
-                    "text": "<h1>{{ closest.product.title }}</h1>",
+                    "text": "<h2>{{ closest.product.title }}</h2>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
-                    "type_preset": "h2",
+                    "type_preset": "h3",
                     "font": "var(--font-primary--family)",
                     "font_size": "",
                     "line_height": "normal",
@@ -147,7 +147,7 @@
                     "letter_spacing": "normal",
                     "case": "none",
                     "color": "var(--color-foreground)",
-                    "padding-block-start": 4,
+                    "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
@@ -733,21 +733,6 @@
     },
     "17503361093c81380e": {
       "type": "_blocks",
-      "blocks": {
-        "doran_product_reviews_product_widget_7pU3cN": {
-          "type": "shopify://apps/doran-product-reviews/blocks/product-widget/ca90c3ee-bc39-4c25-90cd-fdf0519c6d11",
-          "settings": {
-            "topPadding": 36,
-            "bottomPadding": 36,
-            "is_hide_if_no_reviews": false,
-            "is_use_shopify_font": false,
-            "shopify_font": "helvetica_n4"
-          }
-        }
-      },
-      "block_order": [
-        "doran_product_reviews_product_widget_7pU3cN"
-      ],
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
