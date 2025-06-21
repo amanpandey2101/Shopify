@@ -832,6 +832,8 @@
                     "product": "{{ closest.product }}",
                     "inventory_threshold": 11,
                     "show_inventory_quantity": false,
+                    "custom_in_stock_icon": "shopify://shop_images/NeonGreen_69Icon_300x_c91e9ec1-05e9-4268-81d6-ba0f02b73df9.png",
+                    "custom_out_of_stock_icon": "shopify://shop_images/NeonRed_69Icon_300x_b82a83db-c686-4935-ba8c-fefb13cdfb0b.png",
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
