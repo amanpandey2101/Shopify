@@ -171,10 +171,10 @@
                 "inherit_color_scheme": true,
                 "color_scheme": "scheme-1",
                 "border_style": "all",
-                "border_width": 1,
+                "border_width": 2,
                 "border_radius": 39,
                 "input_type_preset": "paragraph",
-                "style_class": "button-unstyled",
+                "style_class": "button-secondary",
                 "display_type": "arrow",
                 "label": "Sign up",
                 "integrated_button": true,
@@ -185,11 +185,38 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
+            },
+            "text_F3ADnX": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h2>Sixty9ine Lifestyle</h2>",
+                "width": "100%",
+                "max_width": "narrow",
+                "alignment": "center",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
             }
           },
           "block_order": [
             "group_4aCyy7",
-            "email_signup_NcLwNb"
+            "email_signup_NcLwNb",
+            "text_F3ADnX"
           ]
         },
         "footer_utilities_KRaGcH": {
