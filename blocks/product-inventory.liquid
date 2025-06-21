@@ -1,5 +1,3 @@
-
-
 {%- liquid
   assign variant = block.settings.product.selected_or_first_available_variant
   if variant.inventory_management == 'shopify'
@@ -39,6 +37,18 @@
       assign translation_key = 'content.inventory_out_of_stock'
     endif
   endif
+
+  comment
+    Assign custom icons based on status
+  endcomment
+  case status
+    when 'in_stock'
+      assign custom_icon = block.settings.custom_in_stock_icon
+    when 'low'
+      assign custom_icon = block.settings.custom_low_stock_icon
+    when 'out_of_stock'
+      assign custom_icon = block.settings.custom_out_of_stock_icon
+  endcase
 -%}
 
 <product-inventory
@@ -56,7 +66,17 @@
     <span
       class="svg-wrapper product-inventory__icon product-inventory__icon-{{ status }}"
     >
-      {{ 'icon-inventory.svg' | inline_asset_content }}
+      {%- if custom_icon != blank -%}
+        <img 
+          src="{{ custom_icon | image_url: width: 20, height: 20 }}" 
+          alt="{{ status | replace: '_', ' ' | capitalize }} indicator"
+          class="product-inventory__custom-icon"
+          width="20"
+          height="20"
+        />
+      {%- else -%}
+        {{ 'icon-inventory.svg' | inline_asset_content }}
+      {%- endif -%}
     </span>
     <span
       class="product-inventory__text"
@@ -86,6 +106,12 @@
   .product-inventory__icon svg {
     width: var(--icon-size-sm);
     height: var(--icon-size-sm);
+  }
+
+  .product-inventory__custom-icon {
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
+    object-fit: contain;
   }
 
   .product-inventory__icon-low {
@@ -129,6 +155,28 @@
       "id": "show_inventory_quantity",
       "label": "t:settings.show_inventory_quantity",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Custom Stock Icons"
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_in_stock_icon",
+      "label": "In Stock Icon",
+      "info": "Upload a custom icon for in stock status. Leave empty to use default indicator."
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_low_stock_icon",
+      "label": "Low Stock Icon",
+      "info": "Upload a custom icon for low stock status. Leave empty to use default indicator."
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_out_of_stock_icon",
+      "label": "Out of Stock Icon",
+      "info": "Upload a custom icon for out of stock status. Leave empty to use default indicator."
     },
     {
       "type": "header",
