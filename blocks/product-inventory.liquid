@@ -68,11 +68,10 @@
     >
       {%- if custom_icon != blank -%}
         <img 
-          src="{{ custom_icon | image_url: width: 20, height: 20 }}" 
+          src="{{ custom_icon | image_url: width: 40, height: 40 }}" 
           alt="{{ status | replace: '_', ' ' | capitalize }} indicator"
           class="product-inventory__custom-icon"
-          width="20"
-          height="20"
+          loading="lazy"
         />
       {%- else -%}
         {{ 'icon-inventory.svg' | inline_asset_content }}
@@ -112,6 +111,19 @@
     width: var(--icon-size-sm);
     height: var(--icon-size-sm);
     object-fit: contain;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+    -ms-interpolation-mode: nearest-neighbor;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+    .product-inventory__custom-icon {
+      image-rendering: auto;
+      image-rendering: -webkit-optimize-contrast;
+    }
   }
 
   .product-inventory__icon-low {
@@ -164,19 +176,19 @@
       "type": "image_picker",
       "id": "custom_in_stock_icon",
       "label": "In Stock Icon",
-      "info": "Upload a custom icon for in stock status. Leave empty to use default indicator."
+      "info": "Upload a custom icon for in stock status. For best quality, use a high-resolution image (at least 40x40px). Leave empty to use default indicator."
     },
     {
       "type": "image_picker",
       "id": "custom_low_stock_icon",
       "label": "Low Stock Icon",
-      "info": "Upload a custom icon for low stock status. Leave empty to use default indicator."
+      "info": "Upload a custom icon for low stock status. For best quality, use a high-resolution image (at least 40x40px). Leave empty to use default indicator."
     },
     {
       "type": "image_picker",
       "id": "custom_out_of_stock_icon",
       "label": "Out of Stock Icon",
-      "info": "Upload a custom icon for out of stock status. Leave empty to use default indicator."
+      "info": "Upload a custom icon for out of stock status. For best quality, use a high-resolution image (at least 40x40px). Leave empty to use default indicator."
     },
     {
       "type": "header",
