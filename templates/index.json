@@ -828,6 +828,7 @@
                 "product_inventory_tQHMai": {
                   "type": "product-inventory",
                   "name": "t:names.product_inventory",
+                  "disabled": true,
                   "settings": {
                     "product": "{{ closest.product }}",
                     "inventory_threshold": 11,
