@@ -52,36 +52,36 @@ class JumboText extends HTMLElement {
       return;
     }
 
-    // Hide text during calculation
-    this.classList.remove('ready');
+    // **Use the parent container's width as the stable reference point**
+    const containerWidth = this.parentElement.clientWidth;
+    if (containerWidth <= 0) return;
 
-    const availableWidth = this.offsetWidth;
-    if (availableWidth <= 0) return;
-
-    // --- START: NEW CODE FOR FONT SIZE CONTROL ---
+    // --- START: CORRECTED LOGIC ---
     // Get the size percentage from the data attributes
     const desktopSize = parseInt(this.dataset.desktopSize || '100', 10);
     const mobileSize = parseInt(this.dataset.mobileSize || '100', 10);
     const isMobile = window.innerWidth < 750;
 
-    // Determine which percentage to use
+    // Determine which percentage to use as a multiplier
     const sizeMultiplier = (isMobile ? mobileSize : desktopSize) / 100;
-    
-    // Calculate the effective width based on the size percentage
-    const effectiveWidth = availableWidth * sizeMultiplier;
-    // --- END: NEW CODE ---
+    // --- END: CORRECTED LOGIC ---
 
-    // Disconnect the resize observer
+
+    // Hide text during calculation
+    this.classList.remove('ready');
+
+    // Disconnect the resize observer to prevent feedback loops
     this.#resizeObserver.disconnect();
 
     // Start with a minimal font size
     this.style.fontSize = '1px';
 
-    // Find the optimal font size using the new effectiveWidth
-    const fontSize = findOptimalFontSize(this, effectiveWidth);
+    // **Step 1: Find the optimal font size for the full container width (100%)**
+    const maxFontSize = findOptimalFontSize(this, containerWidth);
 
-    // Apply the final size
-    this.style.fontSize = `${fontSize}px`;
+    // **Step 2: Apply the user's chosen size multiplier to the result**
+    const finalFontSize = maxFontSize * sizeMultiplier;
+    this.style.fontSize = `${finalFontSize}px`;
 
     // Reconnect the resize observer
     this.#resizeObserver.observe(this);
@@ -100,7 +100,8 @@ class JumboText extends HTMLElement {
     const distanceFromBottom = document.documentElement.offsetHeight - bottom;
     this.dataset.capText = (distanceFromBottom <= 100).toString();
   };
-
+  
+  // Assuming ResizeNotifier is a wrapper for ResizeObserver
   #resizeObserver = new ResizeObserver(this.#handleResize);
 }
 
