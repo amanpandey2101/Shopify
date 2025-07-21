@@ -187,46 +187,91 @@
                 "text_PbYDqr"
               ]
             },
-            "text_dhbHaC": {
-              "type": "text",
-              "name": "t:names.heading",
+            "group_7tfRia": {
+              "type": "group",
+              "name": "t:names.group",
               "settings": {
-                "text": "<h5><strong>NEED HELP CHOOSING THE RIGHT FIT?</strong></h5>",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": true,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 14,
-                "padding-block-end": 14,
+                "link": "",
+                "open_in_new_tab": false,
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
-              "blocks": {}
-            },
-            "button_7fmBrK": {
-              "type": "button",
-              "name": "t:names.button",
-              "settings": {
-                "label": "SIZE CHART",
-                "link": "shopify://collections/all",
-                "open_in_new_tab": false,
-                "style_class": "button-secondary",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "custom",
-                "custom_width_mobile": 100
+              "blocks": {
+                "text_jrJe3Q": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<h5><strong>NEED HELP CHOOSING THE RIGHT FIT?</strong></h5>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": true,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 14,
+                    "padding-block-end": 14,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "button_zpiPGN": {
+                  "type": "button",
+                  "name": "t:names.button",
+                  "settings": {
+                    "label": "SIZE CHART",
+                    "link": "shopify://collections/all",
+                    "open_in_new_tab": false,
+                    "style_class": "button-secondary",
+                    "width": "fit-content",
+                    "custom_width": 100,
+                    "width_mobile": "custom",
+                    "custom_width_mobile": 100
+                  },
+                  "blocks": {}
+                }
               },
-              "blocks": {}
+              "block_order": [
+                "text_jrJe3Q",
+                "button_zpiPGN"
+              ]
             },
             "review_G3ygif": {
               "type": "review",
@@ -545,8 +590,7 @@
           },
           "block_order": [
             "group_icgrde",
-            "text_dhbHaC",
-            "button_7fmBrK",
+            "group_7tfRia",
             "review_G3ygif",
             "divider_VJhene",
             "variant_picker_R3rGDr",
