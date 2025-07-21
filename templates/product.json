@@ -562,31 +562,133 @@
                 "group_7xLQDW"
               ]
             },
-            "text_aEtTtq": {
-              "type": "text",
-              "name": "Product description",
+            "accordion_FRhNgU": {
+              "type": "accordion",
+              "name": "t:names.accordion",
               "settings": {
-                "text": "{{ closest.product.description }}",
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-primary--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
+                "icon": "caret",
+                "dividers": true,
+                "type_preset": "h6",
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
               },
-              "blocks": {}
+              "blocks": {
+                "accordion_row_fLULWq": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Description",
+                    "open_by_default": true
+                  },
+                  "blocks": {
+                    "text_9xVMf8": {
+                      "type": "text",
+                      "name": "Product description",
+                      "settings": {
+                        "text": "<p>{{ closest.product.description }}</p>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-primary--family)",
+                        "font_size": "",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_9xVMf8"
+                  ]
+                },
+                "accordion_row_j3YwqU": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Specifications",
+                    "open_by_default": false
+                  },
+                  "blocks": {
+                    "jumbo_text_7PbD4k": {
+                      "type": "jumbo-text",
+                      "name": "t:names.jumbo_text",
+                      "settings": {
+                        "text": "UNISEX\n100% FRENCH TERRY COTTON\n240 GSM\nFITS OVERSIZED\nSCREEN/ FLOCK",
+                        "font": "subheading",
+                        "alignment": "left",
+                        "line_height": "0.8",
+                        "letter_spacing": "-0.03em",
+                        "case": "none",
+                        "text_effect": "reveal",
+                        "animation_repeat": false
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "jumbo_text_7PbD4k"
+                  ]
+                },
+                "accordion_row_LFJecF": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "Manufacturing",
+                    "open_by_default": false
+                  },
+                  "blocks": {
+                    "text_whkRye": {
+                      "type": "text",
+                      "settings": {
+                        "text": "<p>Our products are manufactured both locally and globally. We carefully select our manufacturing partners to ensure our products are high quality and a fair value.</p>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_whkRye"
+                  ]
+                }
+              },
+              "block_order": [
+                "accordion_row_fLULWq",
+                "accordion_row_j3YwqU",
+                "accordion_row_LFJecF"
+              ]
             }
           },
           "block_order": [
@@ -597,7 +699,7 @@
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
             "group_JbmQwr",
-            "text_aEtTtq"
+            "accordion_FRhNgU"
           ]
         }
       },
