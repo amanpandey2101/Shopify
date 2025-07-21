@@ -109,8 +109,8 @@
                 "text_xrnftG": {
                   "type": "text",
                   "settings": {
-                    "text": "<h2>{{ closest.product.title }}</h2>",
-                    "width": "fit-content",
+                    "text": "<h3>{{ closest.product.title }}</h3>",
+                    "width": "100%",
                     "max_width": "normal",
                     "alignment": "left",
                     "type_preset": "h3",
