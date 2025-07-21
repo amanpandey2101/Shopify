@@ -26,9 +26,29 @@
           },
           "blocks": {}
         },
+        "logo_6d8Qid": {
+          "type": "logo",
+          "name": "t:names.logo",
+          "settings": {
+            "inverse": false,
+            "font": "heading",
+            "unit": "percent",
+            "percent_width": 12,
+            "pixel_height": 48,
+            "custom_mobile_size": false,
+            "unit_mobile": "percent",
+            "percent_width_mobile": 100,
+            "pixel_height_mobile": 120,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
         "group_tbFfTQ": {
           "type": "group",
-          "name": "Join the club",
+          "name": "Subscribe",
           "settings": {
             "link": "",
             "open_in_new_tab": false,
@@ -108,7 +128,7 @@
                   "type": "text",
                   "name": "Heading",
                   "settings": {
-                    "text": "<h2>Join the club</h2>",
+                    "text": "<h2>Subscribe</h2>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -189,6 +209,7 @@
             "text_F3ADnX": {
               "type": "text",
               "name": "t:names.heading",
+              "disabled": true,
               "settings": {
                 "text": "<h2>Sixty9ine Lifestyle</h2>",
                 "width": "100%",
@@ -248,13 +269,13 @@
             },
             "social_icons": {
               "type": "_footer-social-icons",
-              "disabled": true,
               "static": true,
               "settings": {},
               "blocks": {
                 "social_link_JnLXB6": {
                   "type": "_social-link",
                   "name": "Facebook",
+                  "disabled": true,
                   "settings": {
                     "link": "https://www.facebook.com/shopify"
                   },
@@ -264,13 +285,14 @@
                   "type": "_social-link",
                   "name": "Instagram ",
                   "settings": {
-                    "link": "https://www.instagram.com/shopify/#"
+                    "link": "https://www.instagram.com/sixty9inelifestyle/"
                   },
                   "blocks": {}
                 },
                 "social_link_kd8UUt": {
                   "type": "_social-link",
                   "name": "TikTok",
+                  "disabled": true,
                   "settings": {
                     "link": "https://www.tiktok.com/@shopify"
                   },
@@ -279,6 +301,7 @@
                 "social_link_Qw9AXL": {
                   "type": "_social-link",
                   "name": "X / Twitter",
+                  "disabled": true,
                   "settings": {
                     "link": "https://x.com/shopify"
                   },
@@ -287,6 +310,7 @@
                 "social_link_aAH768": {
                   "type": "_social-link",
                   "name": "YouTube",
+                  "disabled": true,
                   "settings": {
                     "link": "https://www.youtube.com/shopify"
                   },
@@ -307,6 +331,7 @@
       },
       "block_order": [
         "divider_hFm3am",
+        "logo_6d8Qid",
         "group_tbFfTQ",
         "footer_utilities_KRaGcH"
       ],
