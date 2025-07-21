@@ -7,7 +7,7 @@
   This snippet converts block settings into CSS Custom Properties
   to be used in an inline style attribute.
 {% endcomment %}
---font-size: {{ settings.font_size | default: 16 }}px;
+--font-size: {{ settings.font_size | default: 12 }}px;
 --width-desktop: {% if settings.width == 'custom' %}{{ settings.custom_width }}%{% else %}fit-content{% endif %};
 --width-mobile: {% if settings.width_mobile == 'custom' %}{{ settings.custom_width_mobile }}%{% else %}fit-content{% endif %};
 {%- if settings.width == 'custom' -%}
