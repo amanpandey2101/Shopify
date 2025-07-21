@@ -655,24 +655,26 @@
                     "open_by_default": false
                   },
                   "blocks": {
-                    "jumbo_text_9g7ABJ": {
+                    "jumbo_text_y4a9wF": {
                       "type": "jumbo-text",
                       "name": "t:names.jumbo_text",
                       "settings": {
-                        "text": "HAND WASH ONLY\nREVERSE IRON\nDO NOT BLEACH\nLAY FLAT TO DRY\nCOLD WASH ONLY",
-                        "font": "heading",
+                        "text": "HAND WASH ONLY  \nREVERSE IRON\nDO NOT BLEECH\nLAY FLAT TO DRY & COLD WASH ONLY",
+                        "font": "subheading",
                         "alignment": "left",
-                        "line_height": "0.8",
-                        "letter_spacing": "normal",
+                        "line_height": "1",
+                        "letter_spacing": "-0.03em",
                         "case": "none",
-                        "text_effect": "none",
-                        "animation_repeat": false
+                        "text_effect": "reveal",
+                        "animation_repeat": false,
+                        "desktop_size_percentage": 75,
+                        "mobile_size_percentage": 65
                       },
                       "blocks": {}
                     }
                   },
                   "block_order": [
-                    "jumbo_text_9g7ABJ"
+                    "jumbo_text_y4a9wF"
                   ]
                 }
               },
