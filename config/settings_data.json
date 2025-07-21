@@ -639,9 +639,6 @@
     }
   },
   "platform_customizations": {
-    "custom_css": [
-      "/* * This targets the video component, which your code * gives the class 'size-style'.*//* Hide controls in Chrome, Safari, Edge */.size-style video::-webkit-media-controls {display: none !important;}",
-      "/* Prevent hover/click from revealing controls */.size-style video {pointer-events: none;}"
-    ]
+    "custom_css": []
   }
 }
