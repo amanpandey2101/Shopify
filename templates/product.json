@@ -630,13 +630,13 @@
                       "type": "jumbo-text",
                       "name": "t:names.jumbo_text",
                       "settings": {
-                        "text": "UNISEX\n100% FRENCH TERRY COTTON\n240 GSM\nFITS OVERSIZED\nSCREEN/ FLOCK",
+                        "text": "UNISEX\n100% FRENCH TERRY COTTON\n240 GSM\nFITS OVERSIZED",
                         "font": "subheading",
                         "alignment": "left",
                         "line_height": "1",
                         "letter_spacing": "-0.03em",
                         "case": "none",
-                        "text_effect": "reveal",
+                        "text_effect": "none",
                         "animation_repeat": false,
                         "desktop_size_percentage": 60,
                         "mobile_size_percentage": 50
