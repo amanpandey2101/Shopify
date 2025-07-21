@@ -640,7 +640,8 @@
   },
   "platform_customizations": {
     "custom_css": [
-      "body {border: 1px solid red;}"
+      "/* * This targets the video component, which your code * gives the class 'size-style'.*/ /* Hide controls in Chrome, Safari, Edge */.size-style video::-webkit-media-controls {display: none !important;}",
+      ".size-style video {pointer-events: none;}"
     ]
   }
 }
