@@ -585,14 +585,14 @@
                   "type": "_accordion-row",
                   "settings": {
                     "heading": "Description",
-                    "open_by_default": true
+                    "open_by_default": false
                   },
                   "blocks": {
                     "text_9xVMf8": {
                       "type": "text",
                       "name": "Product description",
                       "settings": {
-                        "text": "<p>{{ closest.product.description }}</p>",
+                        "text": "{{ closest.product.description }}",
                         "width": "100%",
                         "max_width": "normal",
                         "alignment": "left",
