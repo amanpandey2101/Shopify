@@ -40,4 +40,18 @@
       text-decoration-color: transparent;
     }
   }
+  /* Find this existing CSS rule in your stylesheet */
+.size-style {
+  /* This line is new */
+  font-size: var(--font-size);
+  width: var(--width-desktop);
+  max-width: 100%;
+}
+
+/* Find this existing media query for mobile styles */
+@media screen and (max-width: 749px) {
+  .size-style {
+    width: var(--width-mobile);
+  }
+}
 {% endstylesheet %}
