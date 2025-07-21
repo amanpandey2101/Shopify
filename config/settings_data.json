@@ -640,8 +640,8 @@
   },
   "platform_customizations": {
     "custom_css": [
-      "/* * This targets the video component, which your code * gives the class 'size-style'.*/ /* Hide controls in Chrome, Safari, Edge */.size-style video::-webkit-media-controls {display: none !important;}",
-      ".size-style video {pointer-events: none;}"
+      "/* --- Enhanced CSS to Hide Video Controls on All Devices --- *//* This prevents clicks, taps, and hover effects on the video */.size-style video {pointer-events: none;}",
+      "/* * This targets all parts of the control bar in WebKit browsers * like Safari on iPhone and Chrome.*/.size-style video::-webkit-media-controls,.size-style video::-webkit-media-controls-panel,.size-style video::-webkit-media-controls-play-button,.size-style video::-webkit-media-controls-volume-slider,.size-style video::-webkit-media-controls-fullscreen-button,.size-style video::-webkit-media-controls-timeline,.size-style video::-webkit-media-controls-current-time-display,.size-style video::-webkit-media-controls-time-remaining-display {display: none !important; -webkit-appearance: none;}"
     ]
   }
 }
