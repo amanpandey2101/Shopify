@@ -17,6 +17,7 @@
           "name": "t:names.video",
           "settings": {
             "source": "uploaded",
+            "video": "shopify://files/videos/WesbiteVideo_10801440.mp4",
             "video_url": "",
             "video_autoplay": true,
             "video_loop": true,
@@ -127,7 +128,6 @@
         "video_fPxXyd",
         "group_pGk3cH"
       ],
-      "disabled": true,
       "name": "t:names.video_section",
       "settings": {
         "content_direction": "column",
@@ -544,6 +544,7 @@
         "slide_C6qy3w",
         "slide_R6TwBV"
       ],
+      "disabled": true,
       "name": "t:names.slideshow",
       "settings": {
         "icons_style": "arrows_large",
