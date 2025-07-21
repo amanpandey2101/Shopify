@@ -1,0 +1,18 @@
+/* --- Parallax Scroll Effect --- */
+
+#shopify-section-template--19707495907540__section_GVDVYk {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    z-index: 0;
+  }
+  
+  #shopify-section-template--19707495907540__product_list_qU3bEB {
+    position: relative;
+    z-index: 1;
+    background-color: var(--color-background);
+  }
+  
+  main#MainContent {
+    overflow: visible;
+  }
