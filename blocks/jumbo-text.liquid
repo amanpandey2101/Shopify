@@ -125,7 +125,27 @@
       "label": "t:settings.animation_repeat",
       "default": false,
       "visible_if": "{{ block.settings.text_effect == \"blur\" or block.settings.text_effect == \"reveal\" }}"
-    }
+    },
+    {
+  "type": "range",
+  "id": "desktop_size_percentage",
+  "label": "Desktop text size",
+  "min": 50,
+  "max": 100,
+  "step": 5,
+  "unit": "%",
+  "default": 100
+},
+{
+  "type": "range",
+  "id": "mobile_size_percentage",
+  "label": "Mobile text size",
+  "min": 50,
+  "max": 100,
+  "step": 5,
+  "unit": "%",
+  "default": 100
+}
   ],
   "presets": [
     {
