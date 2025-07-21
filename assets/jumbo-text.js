@@ -55,7 +55,21 @@ class JumboText extends HTMLElement {
     // Hide text during calculation
     this.classList.remove('ready');
 
-    if (this.offsetWidth <= 0) return;
+    const availableWidth = this.offsetWidth;
+    if (availableWidth <= 0) return;
+
+    // --- START: NEW CODE FOR FONT SIZE CONTROL ---
+    // Get the size percentage from the data attributes
+    const desktopSize = parseInt(this.dataset.desktopSize || '100', 10);
+    const mobileSize = parseInt(this.dataset.mobileSize || '100', 10);
+    const isMobile = window.innerWidth < 750;
+
+    // Determine which percentage to use
+    const sizeMultiplier = (isMobile ? mobileSize : desktopSize) / 100;
+    
+    // Calculate the effective width based on the size percentage
+    const effectiveWidth = availableWidth * sizeMultiplier;
+    // --- END: NEW CODE ---
 
     // Disconnect the resize observer
     this.#resizeObserver.disconnect();
@@ -63,8 +77,8 @@ class JumboText extends HTMLElement {
     // Start with a minimal font size
     this.style.fontSize = '1px';
 
-    // Find the optimal font size
-    const fontSize = findOptimalFontSize(this, this.offsetWidth);
+    // Find the optimal font size using the new effectiveWidth
+    const fontSize = findOptimalFontSize(this, effectiveWidth);
 
     // Apply the final size
     this.style.fontSize = `${fontSize}px`;
@@ -87,7 +101,7 @@ class JumboText extends HTMLElement {
     this.dataset.capText = (distanceFromBottom <= 100).toString();
   };
 
-  #resizeObserver = new ResizeNotifier(this.#handleResize);
+  #resizeObserver = new ResizeObserver(this.#handleResize);
 }
 
 /**
