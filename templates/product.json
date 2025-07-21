@@ -231,10 +231,10 @@
                   "name": "t:names.heading",
                   "settings": {
                     "text": "<h5><strong>NEED HELP CHOOSING THE RIGHT FIT?</strong></h5>",
-                    "width": "100%",
-                    "max_width": "normal",
+                    "width": "fit-content",
+                    "max_width": "narrow",
                     "alignment": "left",
-                    "type_preset": "rte",
+                    "type_preset": "h6",
                     "font": "var(--font-body--family)",
                     "font_size": "1rem",
                     "line_height": "normal",
