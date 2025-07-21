@@ -17,7 +17,7 @@
           "name": "t:names.video",
           "settings": {
             "source": "uploaded",
-            "video": "shopify://files/videos/sixty.mp4",
+            "video": "shopify://files/videos/sixty9ine.mp4",
             "video_url": "",
             "video_autoplay": true,
             "video_loop": true,
@@ -45,7 +45,7 @@
       "settings": {
         "content_direction": "row",
         "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
+        "horizontal_alignment": "center",
         "vertical_alignment": "center",
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "center",
