@@ -9,8 +9,8 @@
   
   #shopify-section-template--19707495907540__product_list_qU3bEB {
     position: relative;
-    z-index: 1;
-    background-color: var(--color-background);
+    z-index: 2;
+    background-color: white;
   }
   
   main#MainContent {
