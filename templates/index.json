@@ -67,6 +67,7 @@
         "button_yrBcz3": {
           "type": "button",
           "name": "t:names.button",
+          "disabled": true,
           "settings": {
             "label": "Shop Now",
             "link": "shopify://collections/all",
@@ -91,7 +92,7 @@
         "open_in_new_tab": false,
         "media_type_1": "video",
         "video_1": "shopify://files/videos/sixty9ine.mp4",
-        "media_type_2": "image",
+        "media_type_2": "video",
         "content_direction": "column",
         "vertical_on_mobile": true,
         "horizontal_alignment": "flex-start",
@@ -100,7 +101,7 @@
         "horizontal_alignment_flex_direction_column": "center",
         "vertical_alignment_flex_direction_column": "center",
         "gap": 16,
-        "section_width": "page-width",
+        "section_width": "full-width",
         "section_height": "full-screen",
         "section_height_custom": 50,
         "color_scheme": "scheme-5",
@@ -111,7 +112,7 @@
         "blurred_reflection": false,
         "reflection_opacity": 75,
         "padding-block-start": 0,
-        "padding-block-end": 40
+        "padding-block-end": 5
       }
     },
     "slideshow_HPprQ6": {
