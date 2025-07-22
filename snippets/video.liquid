@@ -36,7 +36,7 @@
 {% assign video_autoplay = video_autoplay | default: block.settings.video_autoplay %}
 {% assign video_loop = video_loop | default: block.settings.video_loop %}
 {% liquid
-  assign media_width_desktop = 100 | divided_by: 2 | append: 'vw'
+  assign media_width_desktop = '100vw'
   assign media_width_mobile = '100vw'
   assign sizes = '(min-width: 750px) ' | append: media_width_desktop | append: ', ' | append: media_width_mobile
   assign widths = '450, 525, 600, 675, 750, 768, 850, 900, 1024, 1125, 1280, 1440, 1536, 1700, 1920, 2048, 2150, 2304, 2560, 2700, 2880, 3072, 3840, 4320, 5760'
@@ -90,6 +90,7 @@
         allow="autoplay; encrypted-media"
         allowfullscreen
         title="{{ video_alt | escape }}"
+        style="width: 100%; height: 100%;"
       ></iframe>
   {% endcapture %}
 {% else %}
@@ -108,16 +109,16 @@
       {{
         video
         | external_video_url: autoplay: true, loop: video_loop, playlist: video.external_id, mute: '1', controls: controls, enablejsapi: enable_js_api
-        | external_video_tag: data-video-type: 'youtube'
+        | external_video_tag: data-video-type: 'youtube', style: 'width: 100%; height: 100%;'
       }}
     {% elsif video.host == 'vimeo' %}
       {{
         video
         | external_video_url: autoplay: true, loop: video_loop, muted: '1', controls: controls, api: enable_js_api
-        | external_video_tag: data-video-type: 'vimeo'
+        | external_video_tag: data-video-type: 'vimeo', style: 'width: 100%; height: 100%;'
       }}
     {% else %}
-      {{ video | video_tag: image_size: '2500x', autoplay: true, loop: video_loop, muted: true, controls: controls, playsinline: true }}
+      {{ video | video_tag: image_size: '2500x', autoplay: true, loop: video_loop, muted: true, controls: controls, playsinline: true, style: 'width: 100%; height: 100%;' }}
     {% endif %}
   {% endcapture %}
 {% endif %}
@@ -191,7 +192,7 @@
   <div
     {{ additional_attributes }}
     class="{%- if video_class -%}{{ video_class }} {%- endif -%}video-placeholder-wrapper"
-    style="{%- if video_style -%}{{ video_style }} {%- endif -%}--video-placeholder-width: {{ block.settings.custom_width | default: 100 }}%;"
+    style="{%- if video_style -%}{{ video_style }} {%- endif -%}--video-placeholder-width: 100vw;"
   >
     {% if video_preview_image != blank and video_autoplay == false %}
       {{ video_preview_image | image_url: width: 1946 | image_tag: widths: widths, sizes: sizes, loading: loading }}
@@ -218,5 +219,30 @@
 
   .video-interaction-hint:hover {
     opacity: 1;
+  }
+
+  .full-width-video {
+    width: 100vw !important;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    max-width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+  }
+
+  .full-width-video iframe,
+  .full-width-video video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+  }
+
+  .deferred-media__poster-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
   }
 {% endstylesheet %}
