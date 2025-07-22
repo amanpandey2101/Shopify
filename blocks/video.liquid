@@ -8,32 +8,30 @@
 {% endcapture %}
 
 {% if block.settings.source == 'uploaded' %}
-  <div class="video-container responsive-video-container" data-desktop-video="{{ block.settings.video.id }}" data-mobile-video="{{ block.settings.video_mobile.id | default: block.settings.video.id }}">
-    {% comment %} Desktop video {% endcomment %}
-    <div class="video-container desktop-video" data-video-type="desktop">
-      {% render 'video',
-        video: block.settings.video,
-        video_class: 'spacing-style size-style border-style full-width-video',
-        video_loop: block.settings.video_loop,
-        video_style: video_style,
-        video_preview_image: block.settings.video.preview_image,
-        additional_attributes: block.shopify_attributes,
-        section_id: section.id
-      %}
-    </div>
+  {% comment %} Desktop video {% endcomment %}
+  <div class="video-container desktop-video">
+    {% render 'video',
+      video: block.settings.video,
+      video_class: 'spacing-style size-style border-style full-width-video',
+      video_loop: block.settings.video_loop,
+      video_style: video_style,
+      video_preview_image: block.settings.video.preview_image,
+      additional_attributes: block.shopify_attributes,
+      section_id: section.id
+    %}
+  </div>
 
-    {% comment %} Mobile video {% endcomment %}
-    <div class="video-container mobile-video" data-video-type="mobile">
-      {% render 'video',
-        video: block.settings.video_mobile | default: block.settings.video,
-        video_class: 'spacing-style size-style border-style full-width-video',
-        video_loop: block.settings.video_loop,
-        video_style: video_style,
-        video_preview_image: block.settings.video_mobile.preview_image | default: block.settings.video.preview_image,
-        additional_attributes: block.shopify_attributes,
-        section_id: section.id
-      %}
-    </div>
+  {% comment %} Mobile video {% endcomment %}
+  <div class="video-container mobile-video">
+    {% render 'video',
+      video: block.settings.video_mobile | default: block.settings.video,
+      video_class: 'spacing-style size-style border-style full-width-video',
+      video_loop: block.settings.video_loop,
+      video_style: video_style,
+      video_preview_image: block.settings.video_mobile.preview_image | default: block.settings.video.preview_image,
+      additional_attributes: block.shopify_attributes,
+      section_id: section.id
+    %}
   </div>
 {% else %}
   {% render 'video',
@@ -65,85 +63,24 @@
     overflow: hidden;
   }
 
-  .responsive-video-container {
-    position: relative;
-  }
-
-  .responsive-video-container .desktop-video,
-  .responsive-video-container .mobile-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  /* Mobile first approach - show mobile by default */
-  .responsive-video-container .desktop-video {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-  
-  .responsive-video-container .mobile-video {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-  }
-
-  /* Show desktop video on larger screens */
-  @media (min-width: 750px) {
-    .responsive-video-container .desktop-video {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
+  @media (max-width: 749px) {
+    .desktop-video {
+      display: none !important;
     }
-    .responsive-video-container .mobile-video {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
+    .mobile-video {
+      display: block !important;
+    }
+  }
+
+  @media (min-width: 750px) {
+    .desktop-video {
+      display: block !important;
+    }
+    .mobile-video {
+      display: none !important;
     }
   }
 {% endstylesheet %}
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const videoContainers = document.querySelectorAll('.responsive-video-container');
-  
-  function updateVideoVisibility() {
-    const isDesktop = window.innerWidth >= 750;
-    
-    videoContainers.forEach(container => {
-      const desktopVideo = container.querySelector('.desktop-video');
-      const mobileVideo = container.querySelector('.mobile-video');
-      
-      if (desktopVideo && mobileVideo) {
-        if (isDesktop) {
-          desktopVideo.style.opacity = '1';
-          desktopVideo.style.visibility = 'visible';
-          desktopVideo.style.pointerEvents = 'auto';
-          mobileVideo.style.opacity = '0';
-          mobileVideo.style.visibility = 'hidden';
-          mobileVideo.style.pointerEvents = 'none';
-        } else {
-          desktopVideo.style.opacity = '0';
-          desktopVideo.style.visibility = 'hidden';
-          desktopVideo.style.pointerEvents = 'none';
-          mobileVideo.style.opacity = '1';
-          mobileVideo.style.visibility = 'visible';
-          mobileVideo.style.pointerEvents = 'auto';
-        }
-      }
-    });
-  }
-  
-  // Initial call
-  updateVideoVisibility();
-  
-  // Update on window resize
-  window.addEventListener('resize', updateVideoVisibility);
-});
-</script>
 
 {% schema %}
 {
