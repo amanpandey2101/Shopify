@@ -17,14 +17,11 @@
           "name": "t:names.video",
           "settings": {
             "source": "uploaded",
-            "video": "shopify://files/videos/sixty9ine.mp4",
+            "video_mobile": "shopify://files/videos/sixty9ine.mp4",
             "video_url": "",
             "video_autoplay": true,
             "video_loop": true,
             "alt": "",
-            "custom_width": 100,
-            "custom_width_mobile": 100,
-            "aspect_ratio": "16/9",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
@@ -40,6 +37,7 @@
       "block_order": [
         "video_fPxXyd"
       ],
+      "disabled": true,
       "custom_css": [],
       "name": "t:names.video_section",
       "settings": {
