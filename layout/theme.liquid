@@ -5,6 +5,7 @@
   lang="{{ request.locale.iso_code }}"
 >
   <head>
+ {%- render 'ecom_header' -%}
     {{ 'base.css' | asset_url | stylesheet_tag }}
     {{ 'parallax-effect.css' | asset_url | stylesheet_tag }}
     {{ 'parallax.css' | asset_url | stylesheet_tag }}
@@ -69,5 +70,5 @@
     {% if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add-modal' %}
     {% endif %}
-  </body>
+  {%- render "ecom_footer"-%}</body>
 </html>
