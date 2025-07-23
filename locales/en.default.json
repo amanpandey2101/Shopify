@@ -223,7 +223,7 @@
     "pickup_available_in": "Pickup available, {{ pickup_time }}",
     "pickup_not_available": "Pickup currently not available",
     "pickup_ready_in": "{{ pickup_time }}",
-    "powered_by": "",
+    "powered_by": "SIxty9ine",
     "price": "Price",
     "price_compare_at": "Compare at price",
     "price_from": "From {{ price }}",
