@@ -223,7 +223,7 @@
     "pickup_available_in": "Pickup available, {{ pickup_time }}",
     "pickup_not_available": "Pickup currently not available",
     "pickup_ready_in": "{{ pickup_time }}",
-    "powered_by": "SIxty9ine",
+    "powered_by": " ",
     "price": "Price",
     "price_compare_at": "Compare at price",
     "price_from": "From {{ price }}",
@@ -311,6 +311,16 @@
       "add_to_cart_error": "Error adding to cart",
       "sold_out": "Sold out",
       "unavailable": "Unavailable"
+    }
+  },
+  "shopify": {
+    "checkout": {
+      "general": {
+        "autocomplete_powered_by_google": " "
+      }
+    },
+    "links": {
+      "powered_by_shopify": " "
     }
   }
 }
