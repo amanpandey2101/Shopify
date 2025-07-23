@@ -9,11 +9,11 @@
   style="{% render 'typography-style', preset: 'custom', settings: block.settings %}"
   {{ block.shopify_attributes }}
 >
-  <span class="footer-utilities__text">
+  {% comment %} <span class="footer-utilities__text">
     &copy; {{ 'now' | date: '%Y' }}
     {{ shop.name | link_to: routes.root_url -}}
-    {% comment %} , {{ powered_by_link }} {% endcomment %}
-  </span>
+    , {{ powered_by_link }}
+  </span> {% endcomment %}
 </div>
 
 {% schema %}
